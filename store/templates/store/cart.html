@@ -1,0 +1,169 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+
+{% block main %}
+
+
+<body>
+
+
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="description" content="Sublime project">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="{% static 'store/styles/bootstrap4/bootstrap.min.css' %}">
+<link href="{% static 'store/plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="{% static 'store/styles/cart.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'store/styles/cart_responsive.css' %}">
+
+
+
+
+<div class="super_container">
+
+	<!-- Header -->
+
+
+	<div class="home">
+		<div class="home_container">
+			<div class="home_background" style="background-image:url({% static 'store/images/cart.jpg' %})"></div>
+			<div class="home_content_container">
+				<div class="container">
+					<div class="row">
+						<div class="col">
+							<div class="home_content">
+								<div class="breadcrumbs">
+									<ul>
+										<li><a href="/">Bosh sahifa</a></li>
+										<li>Savat</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Cart Info -->
+
+	<div class="cart_info">
+		<div class="container">
+			<div class="row">
+				<div class="col">
+					<!-- Column Titles -->
+					<div class="cart_info_columns clearfix">
+						<div class="cart_info_col cart_info_col_product">Mahsulot</div>
+						<div class="cart_info_col cart_info_col_price">Narxi</div>
+						<div class="cart_info_col cart_info_col_quantity">Soni</div>
+						<div class="cart_info_col cart_info_col_total">Umumiy</div>
+					</div>
+				</div>
+			</div>
+			<div class="row cart_items_row">
+				<div class="col">
+
+					<!-- Cart Item -->
+					{% for item in products %}
+					<div class="cart_item d-flex flex-lg-row flex-column align-items-lg-center align-items-start justify-content-start">
+						<!-- Name -->
+						<div class="cart_item_product d-flex flex-row align-items-center justify-content-start">
+							<div class="cart_item_image">
+								<div><img src="{{ item.product.get_first_photo }}" alt=""></div>
+							</div>
+							<div class="cart_item_name_container">
+								<div class="cart_item_name"><a href="{% url 'product_detail' item.product.slug %}">{{ item.product.title }}</a></div>
+								<div class="cart_item_edit">{{ item.product.category.title }}</div>
+							</div>
+						</div>
+						<!-- Price -->
+						<div class="cart_item_price">{{ item.product.price }} USD</div>
+						<!-- Quantity -->
+						{% if 'cart' in request.path %}
+
+						<div class="cart_item_quantity">
+							<div class="product_quantity_container">
+								<div class="product_quantity clearfix">
+									<span>Soni:</span>
+									<input id="quantity_input" type="text" pattern="[0-9]*" value="{{ item.quantity }}">
+									<div class="quantity_buttons">
+										{% if item.product.quantity > 0 %}
+										<div id="quantity_inc_button" class="quantity_inc quantity_control">
+											<a href="{% url 'to_cart' item.product.pk 'add' %}"><i class="fa fa-chevron-up" aria-hidden="true"></i></a></div>
+										{% endif %}
+										<div id="quantity_dec_button" class="quantity_dec quantity_control">
+											<a href="{% url 'to_cart' item.product.pk 'delete' %}"><i class="fa fa-chevron-down" aria-hidden="true"></i></a></div>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endif %}
+						<!-- Total -->
+						<div class="cart_item_total">{{ order.get_cart_total_price }} USD</div>
+					</div>
+					{% endfor %}
+
+				</div>
+			</div>
+			<div class="row row_cart_buttons">
+				<div class="col">
+					<div class="cart_buttons d-flex flex-lg-row flex-column align-items-start justify-content-start">
+						<div class="button continue_shopping_button"><a href="/">Xaridni davom ettirish</a></div>
+						<div class="cart_buttons_right ml-lg-auto">
+							<div class="button clear_cart_button"><a href="{% url 'clear_cart' %}">Savatni tozalash</a></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row row_extra">
+
+
+				<div class="col-lg-6 offset-lg-2">
+					<div class="cart_total">
+						<div class="section_title">Umumiy</div>
+						<div class="section_subtitle"></div>
+						<div class="cart_total_container">
+							<ul>
+								<li class="d-flex flex-row align-items-center justify-content-start">
+									<div class="cart_total_title">Tovarlar soni:</div>
+									<div class="cart_total_value ml-auto">{{ order.get_cart_total_quantity }}</div>
+								</li>
+								<li class="d-flex flex-row align-items-center justify-content-start">
+									<div class="cart_total_title">Umumiy narxi:</div>
+									<div class="cart_total_value ml-auto">{{ order.get_cart_total_price }} USD
+									</div>
+								</li>
+							</ul>
+						</div>
+						<div class="button checkout_button"><a href="{% url 'checkout' %}">Sotib olish</a></div>
+					</div>
+				</div>
+			</div>
+		</div>		
+	</div>
+
+</div>
+
+<script src="{% static 'store/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'store/styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'store/styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'store/plugins/greensock/TweenMax.min.js' %}"></script>
+<script src="{% static 'store/plugins/greensock/TimelineMax.min.js' %}"></script>
+<script src="{% static 'store/plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
+<script src="{% static 'store/plugins/greensock/animation.gsap.min.js' %}"></script>
+<script src="{% static 'store/plugins/greensock/ScrollToPlugin.min.js' %}"></script>
+<script src="{% static 'store/plugins/easing/easing.js' %}"></script>
+<script src="{% static 'store/plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'store/js/cart.js' %}"></script>
+</body>
+
+{% endblock %}
+

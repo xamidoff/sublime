@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+{% block main %}
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="Sublime project">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" type="text/css" href="{% static 'store/styles/bootstrap4/bootstrap.min.css' %}">
+    <link href="{% static 'store/plugins/font-awesome-4.7.0/css/font-awesome.min.css' %}" rel="stylesheet"
+          type="text/css">
+    <link rel="stylesheet" type="text/css" href="{% static 'store/plugins/OwlCarousel2-2.2.1/owl.carousel.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'store/plugins/OwlCarousel2-2.2.1/owl.theme.default.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'store/plugins/OwlCarousel2-2.2.1/animate.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'store/styles/product.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'store/styles/product_responsive.css' %}">
+</head>
+
+<div class="home">
+    <div class="home_container">
+        <div class="home_background" style="background-image:url({% static 'store/images/categories.jpg' %})"></div>
+        <div class="home_content_container">
+            <div class="container">
+                <div class="row">
+                    <div class="col">
+                        <div class="home_content">
+                            <div class="home_title">Smart Phones<span>.</span></div>
+                            <div class="home_text"><p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam a
+                                ultricies metus. Sed nec molestie eros. Sed viverra velit venenatis fermentum
+                                luctus.</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="product_details">
+    <div class="container">
+        <div class="row details_row">
+
+            <!-- Product Image -->
+            {% include 'store/components/_product_photo.html' %}
+
+            <!-- Product Content -->
+            {% include 'store/components/_product_details_card.html' %}
+
+        </div>
+
+
+        <div class="row description_row">
+            <div class="col">
+                <div class="description_title_container">
+                    <div class="description_title">Tovar haqida:</div>
+                </div>
+                <div class="description_text">
+                    <p>{{ product.description }}</p>
+                </div>
+            </div>
+        </div>
+
+
+        {% if request.user.is_authenticated %}
+        <div class="container" style="margin-top: 50px;">
+            <div class="description_title"><h3>Izoh qoldiring...</h3></div>
+            <form action="{% url 'save_review' product.slug %}" method="post" enctype="multipart/form-data"
+                  style="margin-top: 30px; margin-bottom: 20px;">
+                {% csrf_token %}
+                {{ review_form.text }}
+                <button type="submit" class="btn btn-success" style="margin-top: 35px; margin-left: 970px;">Izoh
+                    qoldirish
+                </button>
+            </form>
+        </div>
+        {% endif %}
+
+        <div class="container" style="margin-top: 50px;">
+            <div class="reviews_title text-dark"><h3>Sharhlar: <span> ({{ reviews_count }}) </span></h3>
+            {% for review in reviews %}
+            <div class="container"  style="margin-top: 50px;">
+            <h5>{{ review.author }}</h5>
+            <h4>{{ review.text }}</h4>
+            <p>{{ review.created_at }}</p>
+            </div>
+            {% endfor %}
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<!--Releated products-->
+
+{% include 'store/components/_releated.html' %}
+
+<script src="{% static 'store/js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'store/styles/bootstrap4/popper.js' %}"></script>
+<script src="{% static 'store/styles/bootstrap4/bootstrap.min.js' %}"></script>
+<script src="{% static 'store/plugins/greensock/TweenMax.min.js' %}"></script>
+<script src="{% static 'store/plugins/greensock/TimelineMax.min.js' %}"></script>
+<script src="{% static 'store/plugins/scrollmagic/ScrollMagic.min.js' %}"></script>
+<script src="{% static 'store/plugins/greensock/animation.gsap.min.js' %}"></script>
+<script src="{% static 'store/plugins/greensock/ScrollToPlugin.min.js' %}"></script>
+<script src="{% static 'store/plugins/OwlCarousel2-2.2.1/owl.carousel.js' %}"></script>
+<script src="{% static 'store/plugins/Isotope/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'store/plugins/easing/easing.js' %}"></script>
+<script src="{% static 'store/plugins/parallax-js-master/parallax.min.js' %}"></script>
+<script src="{% static 'store/js/product.js' %}"></script>
+
+
+{% endblock main %}

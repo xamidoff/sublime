@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+
+
+<div class="container">
+    {% for review in reviews %}
+    <p>{{ review.author }}</p>
+    <p>{{ review.created_at }}</p>
+    <p>{{ review.text }}</p>
+    {% endfor %}
+</div>

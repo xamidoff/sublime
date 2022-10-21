@@ -1,0 +1,31 @@
+<div class="products">
+    <div class="container">
+        <div class="row">
+            <div class="col text-center">
+                <div class="products_title">Tavsiya qilamiz!</div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <div class="product_grid">
+
+                    <!-- Product -->
+                    {% for product in products %}
+                    <div class="product">
+                        <div class="product_image"><img src="{{ product.get_first_photo }}" alt=""></div>
+                        {% if product.discount %}
+                        <div class="product_extra text-light product_sale"><a>SALE</a></div>
+                        {% endif %}
+                        <div class="product_content">
+                            <div class="product_title"><a href="{% url 'product_detail' product.slug %}">{{ product.title }}</a></div>
+                            <div class="product_price">Narxi: {{ product.price }} USD</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

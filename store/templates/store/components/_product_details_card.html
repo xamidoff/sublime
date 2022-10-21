@@ -1,0 +1,38 @@
+<div class="col-lg-6">
+    <div class="details_content">
+        <div class="details_name">{{ product.title }}</div>
+        <div class="details_price">Narxi:</div>
+        {% if product.discount %}
+        <div class="details_discount">{{ product.discount }}</div>
+        {% endif %}
+        <div class="details_price">{{ product.price }} USD</div>
+        <!-- Product details -->
+        <div class="details_text">
+            <p>Brand: {{ product.brand|upper }}</p>
+            <p>Yili: {{ product.manufacture_date }}</p>
+            <p>Rangi: {{ product.colour }}</p>
+            <p>Kamera: {{ product.camera }} MegaPixel</p>
+            <p>Xotiras: {{ product.memory }} GB</p>
+            <p>Quvvati: {{ product.battery }} mAh</p>
+            <p>Tehnik xususiyatlari: {{ product.performance }}</p>
+        </div>
+
+        <!-- Product Quantity -->
+        <div class="product_quantity_container">
+            <div class="button cart_button"><a href="{% url 'to_cart' product.pk 'add' %}">Savatga qo'shish</a></div>
+        </div>
+
+        <!-- Share -->
+        <div class="details_share">
+            <span>Ulashish:</span>
+            <ul>
+                <li><a href="https://www.pinterest.com/"><i class="fa fa-pinterest" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.instagram.com/"><i class="fa fa-instagram" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.facebook.com/"><i class="fa fa-facebook" aria-hidden="true"></i></a></li>
+                <li><a href="https://www.twitter.com/"><i class="fa fa-twitter" aria-hidden="true"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+

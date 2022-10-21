@@ -1,0 +1,13 @@
+
+<div class="col-lg-6">
+    <div class="details_image">
+        <div class="details_image_large"><img src="{{ product.get_first_photo }}" alt="">
+        {% if product.discount %}<div class="product_extra text-light product_sale"><a>SALE</a></div>{% endif %}</div>
+        <div class="details_image_thumbnails d-flex flex-row align-items-start justify-content-between">
+            {% for photo in product.images.all %}
+            <div class="details_image_thumbnail" data-image="{{ photo.image.url }}"><img src="{{ photo.image.url }}"
+                                                                                        alt=""></div>
+            {% endfor %}
+        </div>
+    </div>
+</div>

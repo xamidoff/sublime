@@ -1,0 +1,16 @@
+{% extends  'base.html' %}
+
+<main>
+    {% for product in search_results %}
+    <div class="product">
+        <div class="product_image"><img src="{{ product.get_first_photo }}" alt=""></div>
+        {% if product.discount %}
+        <div class="product_extra product_sale text-light"><a>SALE</a></div>
+        {% endif %}
+        <div class="product_content">
+            <div class="product_title"><a href="{% url 'product_detail' product.slug %}">{{ product.title }}</a></div>
+            <div class="product_price">Narxi: {{ product.price }} USD</div>
+        </div>
+    </div>
+    {% endfor %}
+</main>

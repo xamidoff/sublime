@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block title %}
+{{ title }}
+{% endblock title %}
+
+
+{% block main %}
+
+
+{% block category_home %}
+{% include 'store/components/_category_home.html' %}
+{% endblock category_home %}
+
+
+<div class="products">
+    <div class="container">
+        <div class="row">
+            <div class="col">
+
+                <!-- Product Sorting -->
+
+                {% include 'store/components/_sort.html' %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+
+                <div class="product_grid">
+
+                    <!-- Product -->
+                    {% for product in products %}
+                    <div class="product">
+                        <div class="product_image"><img src="{{ product.get_first_photo }}" alt=""></div>
+                        {% if product.discount %}
+                            <div class="product_extra product_sale text-light"><a>SALE</a></div>
+                            {% endif %}
+                        <div class="product_content">
+                            <div class="product_title"><a href="{% url 'product_detail' product.slug %}">{{ product.title }}</a></div>
+                            <div class="product_price">Narxi: {{ product.price }} USD</div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                </div>
+
+                <!-- Product pagination -->
+<!--                {% include 'store/components/_pagination.html' %}-->
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Icon Boxes -->
+
+{% include 'components/_icon_boxes.html' %}
+
+
+{% endblock main %}
